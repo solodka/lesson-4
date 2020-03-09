@@ -90,13 +90,32 @@ let appData = {
     },
     chooseIncome: function(){
         let items = prompt('Что приносит доп доход? (Через запятую)', '');
-        if (typeof(items) != 'string'){
-            alert('Ошибка! Вы ввели не строку! Повторите ввод!');
+        while (items === null){
+            alert('Вы не ввели данные!');
             items = prompt('Что приносит доп доход? (Через запятую)', '');
         }
+        while ((items == '') || (typeof(items) != 'string')){
+            alert('Ошибка! Вы не ввели строку! Повторите ввод!');
+            items = prompt('Что приносит доп доход? (Через запятую)', '');
+        }
+
         appData.income = items.split(', ');
-        appData.income.push(prompt('Может что-то еще?'));
+
+        items = prompt('Может что-то еще?');
+        if (items != null){
+            appData.income.push(items);
+        }   
         appData.income.sort();
+
+        console.log('Способы доп. заработка: ');
+        appData.income.forEach(function(item, index){
+            console.log(index + 1 + '. ' + item);
+        });
+    },
+    dataPrint: function(){
+        console.log('Наша программа включает в себя данные: ');
+        for (let key in appData){
+            console.log(key + ': ' + appData[key]);
+        }
     }
 };
-
